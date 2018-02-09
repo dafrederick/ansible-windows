@@ -1,0 +1,9 @@
+---
+- name: install a requested package
+  hosts: windows
+  task: 
+    - name: install package from chocolatey repo
+      win_chocolatey:
+        name: "{{ package }}"
+        state: present
+    

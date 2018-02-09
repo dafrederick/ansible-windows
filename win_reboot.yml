@@ -1,0 +1,7 @@
+---
+- hosts: windows
+  gather_facts: no
+  
+  tasks:
+    - name: reboot windows systems
+      win_reboot:

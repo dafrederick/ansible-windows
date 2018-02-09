@@ -1,0 +1,5 @@
+## [windows] group to match group_vars/windows/{vars,vault}
+[windows]
+## list of hosts (ip's or fqdn's)
+192.168.x.x
+192.168.x.y

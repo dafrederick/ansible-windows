@@ -1,0 +1,9 @@
+---
+- name: Check the status of a Service
+  hosts: windows
+  gather_facts: no
+  tasks:
+    - name: Check if "{{ service }}" is installed
+      win_service:
+        name: "{{ service }}"
+      register: service_info

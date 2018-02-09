@@ -1,0 +1,8 @@
+---
+- hosts: windows
+  gather_facts: no
+  
+  tasks:
+    - name: update windows systems
+      win_updates:
+      register: update_result

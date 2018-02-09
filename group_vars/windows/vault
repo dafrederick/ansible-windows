@@ -1,0 +1,2 @@
+## encrypt this file with 'ansible-vault encrypt vault
+vault_ansible_ssh_pass: secretpassword goes here

@@ -1,0 +1,64 @@
+---
+- name: Download 7-zip Software
+  hosts: windows
+  gather_facts: no
+  tasks:
+    - name: temp directory exists
+      win_file:
+        path: C:\temp
+        state: directory
+      tags: 
+        - temp-directory
+        - build
+
+    - name: temp directory absent
+      win_file:
+        path: C:\temp
+        state: absent
+      tags: 
+        - temp-absent
+        - teardown
+
+    - name: download 7-zip package
+      win_get_url:
+        url: http://www.7-zip.org/a/7z1801-x64.msi
+        dest: C:\temp\7z.msi
+      tags: 
+        - download
+        - build
+    
+    - name: check if 7-Zip is already installed
+      win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{23170F69-40C1-2702-1701-000001000000}
+      register: 7zip_installed
+      tags: 
+        - check
+
+    - name: Ensure 7-zip is installed
+      win_package:
+        path: C:\temp\7z.msi
+        creates_path: C:\Program Files\7-Zip\7z.exe
+        state: present
+        wait: yes
+      tags: 
+        - installed
+        - build
+
+    - name: Ensure 7-zip is not installed
+      win_package:
+        path: C:\Program Files\7-Zip\7z.exe
+        product-id: 7-Zip
+        arguments: \S
+        state: absent
+        tags: 
+          - uninstalled
+          - teardown
+
+    - name: Remove 7-zip download
+      win_package:
+        path: C:\temp\7z.msi
+        state: absent
+        tags: 
+          - removed
+          - teardown
+

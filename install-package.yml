@@ -1,0 +1,11 @@
+---
+- name: Installing Requested Package from Chocolatey
+  hosts: windows
+  gather_facts: no
+  tasks: 
+    - name: "{{ package }}"
+      win_chocolatey:
+        name: "{{ item }}"
+        state: present
+      with_items:
+         - "{{ package }}"

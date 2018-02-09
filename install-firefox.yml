@@ -1,0 +1,9 @@
+---
+- name: install firefox
+  hosts: windows
+  gather_facts: no
+  tasks: 
+    - name: Install Firefox
+      win_chocolatey:
+        name: firefox
+        state: present
